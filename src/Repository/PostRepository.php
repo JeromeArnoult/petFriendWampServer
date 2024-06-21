@@ -34,7 +34,7 @@ class PostRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
 
-            $posts = $this->paginatorInterface->paginate($data, $page, 9);
+            $posts = $this->paginatorInterface->paginate($data, $page, 6);
             return $posts;
     }
 }

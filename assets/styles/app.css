@@ -9,3 +9,17 @@ body {
 .card {
     box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
 }
+#navbarSupportedContent4 {
+    display: none;
+  }
+
+  #menu-toggle:checked + label + #navbarSupportedContent4 {
+    display: flex;
+  }
+
+  /* Assurez-vous que le menu se masque sur les écrans plus grands */
+  @media (min-width: 1024px) {
+    #navbarSupportedContent4 {
+      display: flex !important;
+    }
+  }

@@ -20,14 +20,24 @@ class PostTest extends WebTestCase
         $this->assertSelectorTextContains('h1', 'Pet Friend : Le site dédié à nos amis les animaux !');
     }
 
-    public function paginationWorks(): void
+    public function testPaginationWorks(): void
     {
         $client = static::createClient();
-        $client->request(Request::METHOD_GET,'/');
+        $crawler = $client->request(Request::METHOD_GET,'/');
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
 
-        
+        $posts = $crawler->filter('div.card');
+        $this->assertEquals(6, count($posts));
+
+        $link = $crawler->selectLink('2')->extract(['href'])[0];
+        $client->request(Request::METHOD_GET, $link);
+
+        $this->assertResponseIsSuccessful();
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+
+        $posts = $crawler->filter('div.card');
+        $this->assertGreaterThanOrEqual(1, count($posts));
     }
 }
